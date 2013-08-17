@@ -1,0 +1,38 @@
+require_relative 'lib/bubble_sorter'
+require 'paint'
+
+class Listener
+  def initialize
+    @number_to_color = {
+      1 => :black,
+      2 => :red,
+      3 => :green,
+      4 => :yellow,
+      5 => :blue,
+      6 => :magenta,
+      7 => :cyan,
+      8 => :white,
+      9 => :black,
+      10 => :red
+    }
+  end
+
+  def step input
+    clear_terminal
+    input.each do |entry|
+      ascii = ""
+      entry.times do
+        ascii += "#"
+      end
+      puts Paint[ascii, @number_to_color[entry]]
+    end
+    sleep 1
+  end
+
+  def clear_terminal
+    puts "\e[H\e[2J"
+  end
+end
+input = (1 .. 10).to_a.reverse
+sorter = BubbleSorter.new(Listener.new, input)
+sorter.sort
