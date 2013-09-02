@@ -20,10 +20,7 @@ class Listener
   def step input
     clear_terminal
     input.each do |entry|
-      ascii = ""
-      entry.times do
-        ascii += "#"
-      end
+      ascii = "#" * entry
       puts Paint[ascii, @number_to_color[entry]]
     end
     sleep 1
@@ -33,6 +30,8 @@ class Listener
     puts "\e[H\e[2J"
   end
 end
-input = (1 .. 10).to_a.reverse
+random_input = (1..10).map { rand(1..10) }
+input = (1..10).to_a.reverse
 sorter = BubbleSorter.new(Listener.new, input)
+#sorter = BubbleSorter.new(Listener.new, random_input)
 sorter.sort
